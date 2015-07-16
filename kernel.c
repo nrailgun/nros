@@ -3,6 +3,8 @@
 #endif
 #include <stddef.h>
 #include <stdint.h>
+
+#include "enable_paging.h"
  
 /* Check if the compiler thinks if we are targeting the wrong operating system. */
 #if defined(__linux__)
@@ -96,6 +98,9 @@ void terminal_writestring(const char* data) {
 	for (size_t i = 0; i < datalen; i++)
 		terminal_putchar(data[i]);
 }
+
+uint32_t page_dir[1024] __attribute__((aligned(4096)));
+uint32_t page_tab[1024] __attribute__((aligned(4096)));
  
 #if defined(__cplusplus)
 extern "C" /* Use C linkage for kernel_main. */
@@ -108,5 +113,15 @@ void kernel_main() {
          * yet, '\n' will produce some VGA specific character instead.
          * This is normal.
          */
-	terminal_writestring("Hello, kernel World!\n");
+	terminal_writestring("Hello, kernel World v7!\n");
+
+	int i;
+	for (i = 0; i < 1024; i++)
+		page_tab[i] = (i * 0x1000) | 3;
+	for (i = 1; i < 1024; i++)
+		page_dir[i] = 0x00000002;
+	page_dir[0] = ((uint32_t) page_tab) | 3;
+
+	load_page_dir(page_dir);
+	enable_paging();
 }
