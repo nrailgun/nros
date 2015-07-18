@@ -1,10 +1,10 @@
-myos.iso: isodir/boot/grub myos.bin
-	cp myos.bin isodir/boot
-	cp grub.cfg isodir/boot/grub
-	grub-mkrescue -o myos.iso isodir
-
-isodir/boot/grub:
-	mkdir -p $@
+#myos.iso: isodir/boot/grub myos.bin
+#	cp myos.bin isodir/boot
+#	cp grub.cfg isodir/boot/grub
+#	grub-mkrescue -o myos.iso isodir
+#
+#isodir/boot/grub:
+#	mkdir -p $@
 
 myos.bin: boot.o kernel.o enable_paging.o
 	i686-elf-gcc -T linker.ld -o myos.bin -ffreestanding -O2 -nostdlib $? -lgcc
@@ -21,7 +21,8 @@ enable_paging.o: enable_paging.s
 .PHONY: qemu clean
 
 qemu:
-	qemu-system-i386 -cdrom myos.iso
+	# qemu-system-i386 -cdrom myos.iso
+	qemu-system-i386 -kernel myos.bin
 
 clean:
 	rm -rf isodir boot.o kernel.o enable_paging.o myos.bin myos.iso
