@@ -18,7 +18,7 @@
 #enable_paging.o: enable_paging.s
 #	i686-elf-as $? -o $@
 
-bootloader.img: header.s
+bootloader.img: header.s setup.ld
 	as -o header.o header.s
 	ld -T setup.ld -o bootloader.img header.o
 

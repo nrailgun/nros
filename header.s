@@ -1,26 +1,26 @@
-/*
- */
 	.code16
 	.text
-
 	.globl _start
+	.type _start, @function
 _start:
-	movb $'h', %al
+	movw $buf, %si
+1:
+	cmp $0x00, (%si)
+	je 1f
+
+	movb (%si), %al
 	movb $0x0E, %ah
 	int $0x10
 
-	movb $'e', %al
-	movb $0x0E, %ah
-	int $0x10
+	inc %si
+	jmp 1b
 
-	movb $'l', %al
+1:
+	movb $'%', %al
 	movb $0x0E, %ah
 	int $0x10
+	hlt
 
-	movb $'l', %al
-	movb $0x0E, %ah
-	int $0x10
-
-	movb $'o', %al
-	movb $0x0E, %ah
-	int $0x10
+	.data
+buf:
+	.asciz "hello, world"
