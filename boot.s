@@ -45,20 +45,34 @@ load_os:
 
 	cli
 move_os:
-	nop
+	#nop
+	movw %cs, %ax
+	movw %ax, %ds
+	sub %ax, %ax
+	movw %ax, %es
+	sub %si, %si
+	sub %di, %di
+	movw $(new_os_end - new_os), %cx
+	rep movsb
 
 load_dt:
 	movw %cs, %ax
 	movw %ax, %ds
 	#lidt idt_48
-	lgdt gdt_48
+	lgdt gdt
+
+enable_a20:
+	nop # perhaps already enable by fucking machine
+
+enable_protect:
+	#movw $0x0001, %ax
+	#lmsw %ax
+	#ljmp $8, $0
 
 bootload_ok:
 	movb $0x0e, %ah
-	movb $'E', %al
+	movb $'C', %al
 	int $0x10
-hang:
-	jmp hang
 	hlt
 
 	.data
@@ -69,11 +83,11 @@ msg:
 idt_48:
 	.word 0, 0, 0
 
-gdt_48:
-	.word 0x800
-	.word gdt, 0x9
-
 gdt:
+	.word 0x800
+	.word gdt_ents, 0x9
+
+gdt_ents:
 	.word 0, 0, 0, 0
 	.word 0x07FF # 8Mb - limit=2047 (2048*4096=8Mb)
 	.word 0x0000 # base address=0
@@ -84,3 +98,11 @@ gdt:
 	.word 0x0000 # base address=0
 	.word 0x9200 # data read/write
 	.word 0x00C0 # granularity=4096, 386
+
+new_os:
+	movw $0, %ax
+	movw $0, %bx
+	movw $0, %cx
+	movw $0, %dx
+	hlt
+new_os_end:

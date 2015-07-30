@@ -4,7 +4,7 @@ bootloader.img: boot.s setup.ld
 
 .PHONY: run clean qemu
 run:
-	qemu-system-i386 -hda bootloader.img
+	qemu-system-i386 -hda bootloader.img &
 
 clean:
 	rm -rf isodir boot.o kernel.o enable_paging.o myos.bin myos.iso
