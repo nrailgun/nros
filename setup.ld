@@ -7,7 +7,7 @@ OUTPUT_FORMAT("binary");
 
 SECTIONS
 {
-	. = 0x7C00;
+	/* . = 0x7C00; */
 	.text : {
 		*(.text);
 	}
@@ -16,7 +16,8 @@ SECTIONS
 		*(.data);
 	}
 
-	. = 0x7DFE;
+	/* . = 0x7DFE; */
+	. = 510;
 	.signature : {
 		SHORT(0xAA55);
 	}
