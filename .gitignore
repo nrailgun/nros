@@ -3,6 +3,8 @@
 *.img
 *.iso
 
-isodir
 bootloader
 kernel
+
+.vimrc
+.clang_complete

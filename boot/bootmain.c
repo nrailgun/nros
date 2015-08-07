@@ -16,7 +16,7 @@ void wait_disk(void)
 }
 
 static
-void read_sectors(uchar_t *p, uint_t off)
+void read_sector(uchar_t *p, uint_t off)
 {
 	wait_disk();
 	outb(0x1F2, 1); // cnt
@@ -32,5 +32,5 @@ void read_sectors(uchar_t *p, uint_t off)
 
 void bootmain(void)
 {
-	read_sectors((uchar_t *) 0x10000, 1);
+	read_sector((uchar_t *) 0x10000, 1);
 }
