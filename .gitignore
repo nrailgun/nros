@@ -1,5 +1,8 @@
 *.o
 *.bin
-*.iso
 *.img
+*.iso
+
 isodir
+bootloader
+kernel
