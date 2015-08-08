@@ -3,7 +3,8 @@
  *
  * Linker script for the i386 setup code
  */
-OUTPUT_FORMAT("binary");
+OUTPUT_ARCH("i386");
+OUTPUT_FORMAT("binary", "binary", "binary");
 
 SECTIONS
 {
