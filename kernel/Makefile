@@ -1,8 +1,9 @@
 include ../Makefile.config
 
-kernel: main.c kernel.ld
+kernel: kernel.ld kentry.S main.c
+	$(CC) $(CFLAGS) -c kentry.S
 	$(CC) $(CFLAGS) -c main.c
-	$(LD) $(LDFLAGS) -T kernel.ld -o $@ main.o
+	$(LD) $(LDFLAGS) -T kernel.ld -o $@ kentry.o main.o
 
 .PHONY: clean run
 clean:

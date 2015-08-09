@@ -11,4 +11,6 @@ typedef unsigned short ushort_t;
 
 typedef unsigned int uint_t;
 
+typedef uint_t pgdir_entry_t;
+
 #endif /* end of include guard: __NROS_TYPE_H */
