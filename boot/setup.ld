@@ -17,4 +17,9 @@ SECTIONS
 	.signature : {
 		SHORT(0xAA55);
 	}
+
+	/DISCARD/ : {
+		*(.eh_frame);
+		*(.eh_frame_hdr);
+	}
 }

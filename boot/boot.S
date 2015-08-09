@@ -18,6 +18,18 @@ start:
 	movw	%ax, %es
 	movw	%ax, %ss
 
+#ifdef CONFIG_LOADING_MSG
+	movb	$0x03, %ah
+	xor	%bh, %bh
+	int	$0x10 # read cursor
+
+	movw	$0x1301, %ax
+	movw	$msgl, %cx
+	movw	$0x07, %bx
+	movw	$msg, %bp
+	int	$0x10 # write string, move cursor
+#endif
+
 # enable a20
 enable_a20.1:
 	inb	$0x64, %al
@@ -74,3 +86,9 @@ gdt:
 gdt_info:
 	.word (gdt_info - gdt - 1)
 	.long gdt
+
+#ifdef CONFIG_LOADING_MSG
+msg:
+	.ascii	"Loading os....\n\r"
+	msgl = . - msg
+#endif
