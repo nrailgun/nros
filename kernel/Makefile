@@ -1,9 +1,17 @@
 include ../Makefile.config
 
-kernel: kernel.ld kentry.S main.c
+kobjs := kentry.o main.o
+
+kernel: kernel.ld $(kobjs)
+	$(LD) $(LDFLAGS) -T kernel.ld -o $@ $(kobjs)
+
+kentry.o: kentry.S
 	$(CC) $(CFLAGS) -c kentry.S
-	$(CC) $(CFLAGS) -c main.c
-	$(LD) $(LDFLAGS) -T kernel.ld -o $@ kentry.o main.o
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $<
+
+-include *.d
 
 .PHONY: clean run
 clean:

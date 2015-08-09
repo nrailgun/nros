@@ -1,11 +1,17 @@
 include ../Makefile.config
 
-#BOOT_DEFINES = -DCONFIG_LOADING_MSG
+bootobjs := boot.o bootmain.o
 
-bootloader: boot.S bootmain.c setup.ld
-	$(CC) $(CFLAGS) $(BOOT_DEFINES) -c boot.S
-	$(CC) $(CFLAGS) -c bootmain.c
-	$(LD) -T setup.ld -o bootloader boot.o bootmain.o
+bootloader: setup.ld $(bootobjs)
+	$(LD) -T setup.ld -o $@ $(bootobjs)
+
+boot.o: boot.S
+	$(CC) $(CFLAGS) -c $<
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $<
+
+-include *.d
 
 .PHONY: clean run
 clean:
