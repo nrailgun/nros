@@ -9,7 +9,9 @@
 __attribute__((__aligned__(PGSIZE)))
 pgdir_entry_t pgdir[NPDENTRIES] = {
 	[0] = 0 | PTE_P | PTE_W | PTE_PS, // [ 0, 4M ) -> [ 0, 4M )
-	[KERNEL_VBASE >> PDXSHIFT] = 0 | PTE_P | PTE_W | PTE_PS, // [ 0, 4M ) -> [ 0, 4M )
+
+	// [ 0, 4M ) -> [ 0, 4M )
+	[KERN_VBASE >> PDXSHIFT] = 0 | PTE_P | PTE_W | PTE_PS,
 };
 
 int holy_magic;

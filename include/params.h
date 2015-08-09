@@ -5,6 +5,8 @@
 #ifndef __NROS_PARAM_H
 #define __NROS_PARAM_H
 
-#define KSTACKSIZE 4096
+#define CONFIG_LOADING_MSG
+
+#define CONFIG_KSTACKSIZE 4096
 
 #endif /* end of include guard: __NROS_PARAM_H */

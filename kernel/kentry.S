@@ -7,7 +7,7 @@
 
 #include <kpvmem.h>
 #include <memory.h>
-#include <param.h>
+#include <params.h>
 	.text
 	.globl	_start
 	.type	_start, @function
@@ -33,9 +33,9 @@ _kstart:
 	# Set stack pointer and jump to main, continue executing at high
 	# address. Documents say that indirect call is necessary, but I found
 	# not.
-	movl	$(kstack + KSTACKSIZE), %esp
+	movl	$(kstack + KSTACK_SIZE), %esp
 	movl	$main, %eax
 	jmp	*%eax
 
 # kernel stack
-	.comm	kstack, KSTACKSIZE
+	.comm	kstack, KSTACK_SIZE

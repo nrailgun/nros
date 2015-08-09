@@ -13,7 +13,7 @@
 
 #endif /* ifndef __ASSEMBLER__ */
 
-#define SEG_NULLASM                                             \
+#define SEG_NULL_ASM                                            \
 	.word 0, 0;                                             \
 	.byte 0, 0, 0, 0
 
