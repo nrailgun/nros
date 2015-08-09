@@ -36,7 +36,8 @@ read_seg(uchar_t *pa, uint_t cnt, uint_t off)
 {
 	uchar_t *epa;
 
-	epa = pa + cnt; // TODO: round down to boundary
+	epa = pa + cnt;
+	pa -= off % SECTOR_SIZE;
 
 	off /= SECTOR_SIZE;
 	for (; pa < epa; pa += SECTOR_SIZE, off++)

@@ -1,9 +1,6 @@
 PROJS = boot kernel
 
 nros: $(PROJS) nros.img
-#(for i in $(PROJS); do \
-#	make -C $$i; \
-#done)
 	dd if=boot/bootloader of=nros.img conv=notrunc
 	dd if=kernel/kernel of=nros.img seek=1 conv=notrunc
 
