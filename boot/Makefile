@@ -15,7 +15,7 @@ boot.o: boot.S
 
 .PHONY: clean run
 clean:
-	rm -rf *.o bootloader
+	rm -rf *.d *.o bootloader
 
 run:
 	qemu-system-i386 -hda bootloader &

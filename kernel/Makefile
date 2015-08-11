@@ -15,7 +15,7 @@ kentry.o: kentry.S
 
 .PHONY: clean run
 clean:
-	rm -rf *.o kernel
+	rm -rf *.d *.o kernel
 
 run:
 	make -C .. run
