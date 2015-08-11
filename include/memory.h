@@ -177,8 +177,6 @@ struct segdesc {
 
 #ifndef __ASSEMBLER__
 
-typedef uint_t pte_t;
-
 // Task state segment format
 struct taskstate {
 	uint_t link;         // Old ts selector
