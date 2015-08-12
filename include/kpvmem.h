@@ -1,5 +1,5 @@
 /*
- * Nros kernel memory layout related definitions, and tools
+ * NROS kernel memory layout related definitions, and tools
  * to convert phisical / virtual memory.
  *
  * Copyright (C) Junyu Wu, shibuyanorailgun@foxmail, 2015.
