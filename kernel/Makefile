@@ -1,6 +1,6 @@
 include ../Makefile.config
 
-kobjs := kentry.o main.o
+kobjs := kentry.o main.o console.o
 
 kernel: kernel.ld $(kobjs)
 	$(LD) $(LDFLAGS) -T kernel.ld -o $@ $(kobjs)
