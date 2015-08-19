@@ -26,9 +26,9 @@ enum video_text_color_e {
 
 typedef enum video_text_color_e video_text_color_t;
 
-void cnsl_putc(uchar_t c, uint_t row, uint_t col,
+void cnsl_putc(char c, uint_t row, uint_t col,
 	video_text_color_t bg, video_text_color_t fg);
 
-void cnsl_puts(uchar_t s[], uint_t row, uint_t col);
+void cnsl_puts(const char s[], uint_t row, uint_t col);
 
 #endif /* end of include guard: __NROS_CONSOLE_H */

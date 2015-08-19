@@ -15,7 +15,7 @@
  * background color `bg', at row `row', col `col'. It's user's duty to ensure
  * `row''s and `col''s validity.
  */
-void cnsl_putc(uchar_t c, uint_t row, uint_t col,
+void cnsl_putc(char c, uint_t row, uint_t col,
 	video_text_color_t bg, video_text_color_t fg)
 {
 	ushort_t *m, u;
@@ -25,7 +25,7 @@ void cnsl_putc(uchar_t c, uint_t row, uint_t col,
 	*m = u;
 }
 
-void cnsl_puts(uchar_t s[], uint_t row, uint_t col)
+void cnsl_puts(const char s[], uint_t row, uint_t col)
 {
 	// Trick: col >= 80 won't harm
 	for (; *s; s++) {
