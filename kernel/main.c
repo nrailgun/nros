@@ -10,6 +10,7 @@
 #include <memory.h>
 #include <spinlock.h>
 #include <types.h>
+#include <kalloc.h>
 
 __attribute__((__aligned__(PGSIZE)))
 pde_t pgdir[NPDENTRIES] = {
@@ -19,28 +20,13 @@ pde_t pgdir[NPDENTRIES] = {
 	[KERN_VBASE >> PDXSHIFT] = 0 | PTE_P | PTE_W | PTE_PS,
 };
 
+extern char end[]; // End of kernel
+
 void main(void)
 {
-	spinlock_t lk;
-	int i;
+	kalloc_init(end, P2V(4 * 1024 * 1024));
 
-	spinlock_init(&lk, "testlock");
-	spinlock_lock(&lk);
-	i = spinlock_try_lock(&lk);
-	if (i == -EBUSY)
-		cnsl_puts("Good", 10, 20);
-	else
-		cnsl_puts("Bad", 10, 20);
-
-	spinlock_unlock(&lk);
-	i = spinlock_try_lock(&lk);
-	if (i != -EBUSY)
-		cnsl_puts("Good", 11, 20);
-	else
-		cnsl_puts("Bad", 11, 20);
-
-	spinlock_destroy(&lk);
-	cnsl_puts("It's End", 12, 20);
+	cnsl_puts("hello, world", 10, 20);
 
 	while (1)
 		;

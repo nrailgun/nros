@@ -31,4 +31,6 @@ void cnsl_putc(char c, uint_t row, uint_t col,
 
 void cnsl_puts(const char s[], uint_t row, uint_t col);
 
+void panic(const char *msg) __attribute__((noreturn));
+
 #endif /* end of include guard: __NROS_CONSOLE_H */

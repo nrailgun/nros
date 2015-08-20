@@ -28,6 +28,9 @@
 
 #ifndef __ASSEMBLER__
 
+#define V2P(a) (((uint_t) (a)) - KERN_VBASE)
+#define P2V(a) ((void *) ((uchar_t *) (a) + KERN_VBASE))
+
 static inline
 uint_t v2p(void *a) {
 	return (uint_t) a - KERN_VBASE;

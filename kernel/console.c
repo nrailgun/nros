@@ -33,3 +33,28 @@ void cnsl_puts(const char s[], uint_t row, uint_t col)
 			VIDEO_TEXT_COLOR_BLACK, VIDEO_TEXT_COLOR_LRED);
 	}
 }
+
+int atoi(const char s[])
+{
+	int rv, i;
+
+	if (*s == '-')
+		i = 1;
+	else
+		i = 0;
+
+	for (rv = 0; s[i]; i++) {
+		rv += rv * 10 + s[i] - '0';
+	}
+
+	if (*s == '-')
+		return -rv;
+	return rv;
+}
+
+void panic(const char *msg)
+{
+	cnsl_puts(msg, 0, 0);
+	while (1)
+		;
+}
