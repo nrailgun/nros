@@ -9,9 +9,9 @@
 #include <memory.h>
 #include <params.h>
 	.text
-	.globl	_start
-	.type	_start, @function
-_start = V2P_S(_kstart)
+	.globl	kstart
+	.type	kstart, @function
+kstart = V2P_S(_kstart)
 
 	.globl	_kstart
 	.type	_kstart, @function

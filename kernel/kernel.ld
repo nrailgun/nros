@@ -7,7 +7,7 @@
 OUTPUT_ARCH(i386);
 OUTPUT_FORMAT("elf32-i386", "elf32-i386", "elf32-i386");
 
-ENTRY(_start);
+ENTRY(kstart);
 
 SECTIONS
 {
@@ -62,7 +62,7 @@ SECTIONS
 		*(.bss)
 	}
 
-	PROVIDE(end = .);
+	PROVIDE(kend = .);
 
 	/DISCARD/ : {
 		*(.eh_frame .note.GNU-stack)

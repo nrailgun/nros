@@ -12,19 +12,19 @@
 #include <types.h>
 #include <kalloc.h>
 
-__attribute__((__aligned__(PGSIZE)))
-pde_t pgdir[NPDENTRIES] = {
+__attribute__((__aligned__(PG_SIZE)))
+pde_t pgdir[N_PDENT] = {
 	[0] = 0 | PTE_P | PTE_W | PTE_PS, // [ 0, 4M ) -> [ 0, 4M )
 
 	// [ 0, 4M ) -> [ 0, 4M )
-	[KERN_VBASE >> PDXSHIFT] = 0 | PTE_P | PTE_W | PTE_PS,
+	[KERN_VBASE >> PDIDX_SHFT] = 0 | PTE_P | PTE_W | PTE_PS,
 };
 
-extern char end[]; // End of kernel
+extern char kend[]; // End of kernel
 
 void main(void)
 {
-	kalloc_init(end, P2V(4 * 1024 * 1024));
+	kalloc_init(kend, P2V(4 * 1024 * 1024));
 
 	cnsl_puts("hello, world", 10, 20);
 

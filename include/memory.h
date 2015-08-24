@@ -137,28 +137,28 @@ struct segdesc {
 // | Page Directory |   Page Table   | Offset within Page  |
 // |      Index     |      Index     |                     |
 // +----------------+----------------+---------------------+
-//  \--- PDX(va) --/ \--- PTX(va) --/ 
+//  \--- PDIDX(va) --/ \--- PTIDX(va) --/ 
 
 // page directory index
-#define PDX(va)         (((uint_t)(va) >> PDXSHIFT) & 0x3FF)
+#define PDIDX(va)         (((uint_t)(va) >> PDIDX_SHFT) & 0x3FF)
 
 // page table index
-#define PTX(va)         (((uint_t)(va) >> PTXSHIFT) & 0x3FF)
+#define PTIDX(va)         (((uint_t)(va) >> PTIDX_SHFT) & 0x3FF)
 
 // construct virtual address from indexes and offset
-#define PGADDR(d, t, o) ((uint_t)((d) << PDXSHIFT | (t) << PTXSHIFT | (o)))
+#define PGADDR(d, t, o) ((uint_t)((d) << PDIDX_SHFT | (t) << PTIDX_SHFT | (o)))
 
 // Page directory and page table constants.
-#define NPDENTRIES      1024    // # directory entries per page directory
-#define NPTENTRIES      1024    // # PTEs per page table
-#define PGSIZE          4096    // bytes mapped by a page
+#define N_PDENT         1024    // # directory entries per page directory
+#define N_PTENT         1024    // # PTEs per page table
+#define PG_SIZE         4096    // bytes mapped by a page
 
-#define PGSHIFT         12      // log2(PGSIZE)
-#define PTXSHIFT        12      // offset of PTX in a linear address
-#define PDXSHIFT        22      // offset of PDX in a linear address
+#define PG_SHFT         12      // log2(PG_SIZE)
+#define PTIDX_SHFT        12      // offset of PTIDX in a linear address
+#define PDIDX_SHFT        22      // offset of PDIDX in a linear address
 
-#define PAGE_ROUND_UP(sz)  (((sz)+PGSIZE-1) & ~(PGSIZE-1))
-#define PAGE_ROUND_DOWN(a) (((a)) & ~(PGSIZE-1))
+#define PAGE_ROUND_UP(sz)  (((sz)+PG_SIZE-1) & ~(PG_SIZE-1))
+#define PAGE_ROUND_DOWN(a) (((a)) & ~(PG_SIZE-1))
 
 // Page table/directory entry flags.
 #define PTE_P           0x001   // Present

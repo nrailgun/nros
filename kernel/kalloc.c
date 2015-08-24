@@ -24,7 +24,7 @@ struct {
 	frame_run_t *free_frames;
 } kmemory;
 
-extern char end[];
+extern char kend[];
 
 static
 void free_range(void *vbeg, void *vend);
@@ -40,11 +40,11 @@ void kfree(void *pt)
 {
 	frame_run_t *fr;
 
-	if ((uint_t) pt % PGSIZE || (char *) pt < end) {
+	if ((uint_t) pt % PG_SIZE || (char *) pt < kend) {
 		panic("kfree, frame not aligned");
 	}
 
-	memset(pt, 0, PGSIZE);
+	memset(pt, 0, PG_SIZE);
 	if (kmemory.use_lock) {
 		spinlock_lock(&kmemory.lock);
 	}
@@ -64,7 +64,7 @@ void free_range(void *vbeg, void *vend)
 	uchar_t *pt;
 
 	pt = (uchar_t *) PAGE_ROUND_UP((uint_t) vbeg);
-	for (; pt + PGSIZE <= (uchar_t *) vend; pt += PGSIZE) {
+	for (; pt + PG_SIZE <= (uchar_t *) vend; pt += PG_SIZE) {
 		kfree(pt);
 	}
 }
