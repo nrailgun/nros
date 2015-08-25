@@ -53,4 +53,13 @@ void stosl(void *p, uint_t d, int cnt)
 		: "memory", "cc");
 }
 
+static inline
+void lcr3(uint_t pgdir)
+{
+	__asm__ __volatile__ ("movl %0, %%cr3"
+		:
+		: "r"(pgdir)
+		);
+}
+
 #endif /* end of include guard: __NROS_LLOPS_H */
