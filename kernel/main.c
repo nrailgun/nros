@@ -20,8 +20,6 @@ pde_t pgdir[N_PDENT] = {
 	[KERN_VBASE >> PDIDX_SHFT] = 0 | PTE_P | PTE_W | PTE_PS,
 };
 
-extern char kend[]; // End of kernel
-
 void main(void)
 {
 	kalloc_init(kend, P2V(4 * 1024 * 1024));

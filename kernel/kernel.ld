@@ -49,14 +49,14 @@ SECTIONS
 	 * of the data section, but that's not one of the conventional
 	 * symbols, because the convention started before there was a
 	 * read-only rodata section between text and data. */
-	PROVIDE(data = .);
+	PROVIDE(kdata = .);
 
 	/* The data segment */
 	.data : {
 		*(.data)
 	}
 
-	PROVIDE(edata = .);
+	PROVIDE(ekdata = .);
 
 	.bss : {
 		*(.bss)

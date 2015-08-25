@@ -16,12 +16,23 @@
 
 #endif /* ifndef __ASSEMBLER__ */
 
-#define KERN_PBASE 0x100000
+#define KERN_PSTART 0x100000
+#define KERN_PSTOP 0xE000000
 
 #define KERN_VBASE 0x80000000
-#define KERN_VLINK (KERNEL_BASE + KERN_PBASE)
+#define KERN_VSTART (KERN_VBASE + KERN_PSTART)
 
 #define KSTACK_SIZE CONFIG_KSTACKSIZE
+
+#ifndef __ASSEMBLER__
+
+extern char kdata[]; // Kernel data
+
+extern char ekdata[]; // End of kernel data
+
+extern char kend[]; // End of kernel
+
+#endif /* ifndef __ASSEMBLER__ */
 
 #define V2P_S(a) ((a) - KERN_VBASE)
 #define P2V_S(a) ((a) + KERN_VBASE)

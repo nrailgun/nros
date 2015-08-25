@@ -5,12 +5,13 @@
  */
 
 #include <comm.h>
-#include <errn.h>
-#include <spinlock.h>
-#include <types.h>
-#include <memory.h>
-#include <string.h>
 #include <console.h>
+#include <errn.h>
+#include <kpvmem.h>
+#include <memory.h>
+#include <spinlock.h>
+#include <string.h>
+#include <types.h>
 
 struct frame_run_s {
 	struct frame_run_s *nxt;
@@ -23,8 +24,6 @@ struct {
 	bool use_lock;
 	frame_run_t *free_frames;
 } kmemory;
-
-extern char kend[];
 
 static
 void free_range(void *vbeg, void *vend);
