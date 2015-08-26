@@ -23,16 +23,11 @@ pde_t pgdir[N_PDENT] = {
 
 void main(void)
 {
+	cnsl_cls();
+	cnsl_puts("NROS booting...\n");
+
 	kalloc_init(kend, P2V(4 * 1024 * 1024));
 	// kvm_alloc();
-
-	cnsl_cls();
-	cnsl_putc('H');
-	cnsl_putc('e');
-	cnsl_putc('l');
-	cnsl_putc('l');
-	cnsl_putc('o');
-	// cnsl_puts("hello, world", 10, 20);
 
 	while (1)
 		;

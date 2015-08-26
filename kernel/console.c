@@ -7,6 +7,7 @@
 #include <console.h>
 #include <kpvmem.h>
 #include <llops.h>
+#include <string.h>
 
 static
 ushort_t *CRT = (ushort_t *) P2V(0xB8000);
@@ -15,7 +16,7 @@ static const
 uint_t CRT_PORT = 0x3D4;
 
 static const
-uint_t CNSL_NROW = 25, CNSL_NCOL = 80;
+uint_t CNSL_NROW = 24, CNSL_NCOL = 80;
 
 static const
 video_text_color_t CNSL_BG = VIDEO_TEXT_COLOR_BLACK;
@@ -63,13 +64,41 @@ void cnsl_putc(char c)
 	uint_t pos;
 
 	pos = cnsl_cur_pos();
-	CRT[pos] = (CNSL_BG << 12) | (CNSL_FG << 8) | c;
-	cnsl_set_cur_pos(++pos);
+
+	if (c == '\b' && pos > 0) {
+		--pos;
+		CRT[pos] = (CNSL_BG << 12) | (CNSL_FG << 8) | ' ';
+	}
+	else if (c == '\n') {
+		pos -= pos % CNSL_NCOL;
+		pos += CNSL_NCOL;
+	}
+	else {
+		CRT[pos] = (CNSL_BG << 12) | (CNSL_FG << 8) | c;
+		pos++;
+	}
+
+	if (pos >= CNSL_NROW * CNSL_NCOL) {
+		memmove(CRT, CRT + CNSL_NCOL,
+			sizeof(*CRT) * (CNSL_NROW - 1) * CNSL_NCOL);
+		pos -= CNSL_NCOL;
+		memset(CRT + pos, 0, sizeof(*CRT) * CNSL_NCOL);
+	}
+
+	cnsl_set_cur_pos(pos);
+}
+
+void cnsl_puts(const char s[])
+{
+	while (*s) {
+		cnsl_putc(*s++);
+	}
 }
 
 void panic(const char *msg)
 {
-	// cnsl_puts(msg, 0, 0);
+	cnsl_puts(msg);
+
 	while (1)
 		;
 }
