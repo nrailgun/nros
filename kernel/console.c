@@ -5,56 +5,71 @@
  */
 
 #include <console.h>
+#include <kpvmem.h>
+#include <llops.h>
 
-#define VIDEO_MEMORY_TEXT	0xB8000
-#define VIDEO_MEMORY_TEXT_NROW	25
-#define VIDEO_MEMORY_TEXT_NCOL	80
+static
+ushort_t *CRT = (ushort_t *) P2V(0xB8000);
 
-/*
- * Write charater `c' to text mode video memory, with foreground color `fg' and
- * background color `bg', at row `row', col `col'. It's user's duty to ensure
- * `row''s and `col''s validity.
- */
-void cnsl_putc(char c, uint_t row, uint_t col,
-	video_text_color_t bg, video_text_color_t fg)
+static const
+uint_t CRT_PORT = 0x3D4;
+
+static const
+uint_t CNSL_NROW = 25, CNSL_NCOL = 80;
+
+static const
+video_text_color_t CNSL_BG = VIDEO_TEXT_COLOR_BLACK;
+
+static const
+video_text_color_t CNSL_FG = VIDEO_TEXT_COLOR_LRED;
+
+static
+uint_t cnsl_cur_pos(void)
 {
-	ushort_t *m, u;
-	
-	m = (ushort_t *) VIDEO_MEMORY_TEXT + VIDEO_MEMORY_TEXT_NCOL * row + col;
-	u = (bg << 12) | (fg << 8) | c;
-	*m = u;
+	uint_t pos;
+
+	outb(CRT_PORT, 14);
+	pos = inb(CRT_PORT + 1);
+	outb(CRT_PORT, 15);
+	pos = inb(CRT_PORT + 1) | (pos << 8);
+
+	return pos;
 }
 
-void cnsl_puts(const char s[], uint_t row, uint_t col)
+static
+void cnsl_set_cur_pos(uint_t pos)
 {
-	// Trick: col >= 80 won't harm
-	for (; *s; s++) {
-		cnsl_putc(*s, row, col++,
-			VIDEO_TEXT_COLOR_BLACK, VIDEO_TEXT_COLOR_LRED);
-	}
+	outb(CRT_PORT, 14);
+	outb(CRT_PORT + 1, pos >> 8);
+	outb(CRT_PORT, 15);
+	outb(CRT_PORT + 1, pos & 0xff);
 }
 
-int atoi(const char s[])
+void cnsl_cls(void)
 {
-	int rv, i;
+	int i, j, pos;
 
-	if (*s == '-')
-		i = 1;
-	else
-		i = 0;
-
-	for (rv = 0; s[i]; i++) {
-		rv += rv * 10 + s[i] - '0';
+	for (i = 0; i < CNSL_NROW; i++) {
+		for (j = 0; j < CNSL_NCOL; j++) {
+			pos = i * CNSL_NCOL + j;
+			CRT[pos] = (CNSL_BG << 12) | (CNSL_FG << 8) | ' ';
+		}
 	}
+	cnsl_set_cur_pos(0);
+}
 
-	if (*s == '-')
-		return -rv;
-	return rv;
+void cnsl_putc(char c)
+{
+	uint_t pos;
+
+	pos = cnsl_cur_pos();
+	CRT[pos] = (CNSL_BG << 12) | (CNSL_FG << 8) | c;
+	cnsl_set_cur_pos(++pos);
 }
 
 void panic(const char *msg)
 {
-	cnsl_puts(msg, 0, 0);
+	// cnsl_puts(msg, 0, 0);
 	while (1)
 		;
 }
