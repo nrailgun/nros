@@ -9,4 +9,6 @@
 
 void *memset(void *dst, int c, uint_t n);
 
+void *memmove(void *dst, void *src, uint_t n);
+
 #endif /* end of include guard: __NROS_STRING_H */

@@ -18,3 +18,32 @@ void *memset(void *dst, int c, uint_t n)
 	}
 	return dst;
 }
+
+void *memmove(void *dst, void *src, uint_t n)
+{
+	char *ss, *sd;
+	int i;
+
+	if (src == dst || !n)
+		return dst;
+
+	ss = (char *) src;
+	sd = (char *) dst;
+
+	if (ss + n <= sd || ss > sd) { // no overlap
+		i = 0;
+		while (i < n) {
+			sd[i] = ss[i];
+			i++;
+		}
+	}
+
+	else { // if (ss < sd) { // ss:ss+n overlaps sd:sd+n
+		i = n - 1;
+		do {
+			sd[i] = ss[i];
+		} while (i--);
+	}
+
+	return dst;
+}
