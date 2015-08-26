@@ -2,8 +2,8 @@
  * Copyright (C) Junyu Wu, shibuyanorailgun@foxmail, 2015.
  */
 
-#include <comm.h>
-#include <errn.h>
+#include <common.h>
+#include <errno.h>
 #include <spinlock.h>
 #include <types.h>
 #include <memory.h>
