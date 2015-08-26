@@ -4,8 +4,8 @@
  * Copyright (C) Junyu Wu, shibuyanorailgun@foxmail, 2015.
  */
 
-#ifndef __NROS_COMM_H
-#define __NROS_COMM_H
+#ifndef __NROS_COMMON_H
+#define __NROS_COMMON_H
 
 #include <types.h>
 
@@ -17,4 +17,4 @@
 
 #define ROUND_DOWN(a, b) ((a) & ~(b - 1))
 
-#endif /* end of include guard: __NROS_COMM_H */
+#endif /* end of include guard: __NROS_COMMON_H */

@@ -38,4 +38,4 @@ _kstart:
 	jmp	*%eax
 
 # kernel stack
-	.comm	kstack, KSTACK_SIZE
+	.common	kstack, KSTACK_SIZE

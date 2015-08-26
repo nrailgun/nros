@@ -4,9 +4,9 @@
  * Copyright (C) Junyu Wu, shibuyanorailgun@foxmail, 2015.
  */
 
-#include <comm.h>
+#include <common.h>
 #include <console.h>
-#include <errn.h>
+#include <errno.h>
 #include <kpvmem.h>
 #include <memory.h>
 #include <spinlock.h>
