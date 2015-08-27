@@ -5,6 +5,6 @@
 #ifndef __NROS_KVM_H
 #define __NROS_KVM_H
 
-void kvm_alloc(void);
+void kvm_setup(void);
 
 #endif /* end of include guard: __NROS_KVM_H */
