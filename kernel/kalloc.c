@@ -39,7 +39,7 @@ void kfree(void *pt)
 {
 	frame_run_t *fr;
 
-	if ((uint_t) pt % PG_SIZE || (char *) pt < kend) {
+	if ((u32_t) pt % PG_SIZE || (char *) pt < kend) {
 		panic("kfree, frame not aligned");
 	}
 
@@ -60,10 +60,10 @@ void kfree(void *pt)
 static
 void free_range(void *vbeg, void *vend)
 {
-	uchar_t *pt;
+	u8_t *pt;
 
-	pt = (uchar_t *) PAGE_ROUND_UP((uint_t) vbeg);
-	for (; pt + PG_SIZE <= (uchar_t *) vend; pt += PG_SIZE) {
+	pt = (u8_t *) PAGE_ROUND_UP((u32_t) vbeg);
+	for (; pt + PG_SIZE <= (u8_t *) vend; pt += PG_SIZE) {
 		kfree(pt);
 	}
 }

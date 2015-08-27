@@ -12,16 +12,16 @@
 // #define GCC_ASM_NEWLINE "\n\t"
 
 static inline
-uchar_t inb(ushort_t port)
+u8_t inb(u16_t port)
 {
-	uchar_t c;
+	u8_t c;
 	
 	__asm__ __volatile__("in %1, %0" : "=a"(c) : "d"(port));
 	return c;
 }
 
 static inline
-void outb(ushort_t port, uchar_t b)
+void outb(u16_t port, u8_t b)
 {
 	__asm__ __volatile__("out %0, %1" : : "a"(b), "d"(port));
 }
@@ -36,7 +36,7 @@ void insl(int port, void *p, int cnt)
 }
 
 static inline
-void stosb(void *p, uint_t d, int cnt)
+void stosb(void *p, u32_t d, int cnt)
 {
 	__asm__ __volatile__("cld; rep stosb"
 		: "=D"(p), "=c"(cnt)
@@ -45,7 +45,7 @@ void stosb(void *p, uint_t d, int cnt)
 }
 
 static inline
-void stosl(void *p, uint_t d, int cnt)
+void stosl(void *p, u32_t d, int cnt)
 {
 	__asm__ __volatile__("cld; rep stosl"
 		: "=D"(p), "=c"(cnt)
@@ -54,7 +54,7 @@ void stosl(void *p, uint_t d, int cnt)
 }
 
 static inline
-void lcr3(uint_t pgdir)
+void lcr3(u32_t pgdir)
 {
 	__asm__ __volatile__ ("movl %0, %%cr3"
 		:

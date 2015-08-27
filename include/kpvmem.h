@@ -39,16 +39,16 @@ extern char kend[]; // End of kernel
 
 #ifndef __ASSEMBLER__
 
-#define V2P(a) (((uint_t) (a)) - KERN_VBASE)
-#define P2V(a) ((void *) ((uchar_t *) (a) + KERN_VBASE))
+#define V2P(a) (((u32_t) (a)) - KERN_VBASE)
+#define P2V(a) ((void *) ((u8_t *) (a) + KERN_VBASE))
 
 static inline
-uint_t v2p(void *a) {
-	return (uint_t) a - KERN_VBASE;
+u32_t v2p(void *a) {
+	return (u32_t) a - KERN_VBASE;
 }
 
 static inline
-void *p2v(uint_t a) {
+void *p2v(u32_t a) {
 	return (void *) a + KERN_VBASE;
 }
 
