@@ -78,7 +78,6 @@ void *kalloc(void)
 	fr = kmemory.free_frames;
 	if (!fr)
 		goto kalloc_unlock;
-// TODO: EM... This looks so buggy. What if `fr' is the last frame?
 	kmemory.free_frames = fr->nxt;
 
 kalloc_unlock:
