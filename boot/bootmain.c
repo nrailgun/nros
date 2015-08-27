@@ -17,7 +17,7 @@ void wait_disk(void)
 }
 
 static
-void read_sector(uchar_t *p, uint_t sect)
+void read_sector(u8_t *p, uint_t sect)
 {
 	wait_disk();
 	outb(0x1F2, 1); // cnt
@@ -32,9 +32,9 @@ void read_sector(uchar_t *p, uint_t sect)
 }
 
 static void
-read_seg(uchar_t *pa, uint_t cnt, uint_t off)
+read_seg(u8_t *pa, uint_t cnt, uint_t off)
 {
-	uchar_t *epa;
+	u8_t *epa;
 
 	epa = pa + cnt;
 	pa -= off % SECTOR_SIZE;
@@ -50,13 +50,13 @@ void bootmain(void)
 {
 	elf_hdr_t *elf;
 	prog_hdr_t *ph, *eph;
-	uchar_t *pa;
+	u8_t *pa;
 	entry_t entry;
 
 	elf = (elf_hdr_t *) 0x10000;
 	elf->ei_magic = 0x01020304;
 
-	read_seg((uchar_t *) elf, 4096, SECTOR_SIZE);
+	read_seg((u8_t *) elf, 4096, SECTOR_SIZE);
 	if (elf->ei_magic != ELF_MAGIC) {
 		elf->ei_magic = ('E' << 16) | ('R' << 8) | 'R';
 		return;
@@ -65,7 +65,7 @@ void bootmain(void)
 	ph = (prog_hdr_t *) ((char *) elf + elf->e_phoff);
 	eph = ph + elf->e_phnum;
 	for (; ph < eph; ph++) {
-		pa = (uchar_t *) ph->p_padr;
+		pa = (u8_t *) ph->p_padr;
 		read_seg(pa, ph->p_filesz, ph->p_off + SECTOR_SIZE);
 		if (ph->p_memsz > ph->p_filesz) {
 			stosb(pa + ph->p_filesz, 0, ph->p_memsz - ph->p_filesz);
