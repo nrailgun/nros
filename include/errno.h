@@ -5,9 +5,42 @@
  */
 
 #ifndef __NROS_ERRNO_H
-#define __NROS_ERRN_OH
+#define __NROS_ERRNO_H
 
-#define EBUSY		0x0001
-#define EINVAL		0x0002
+enum {
+	EOK,
+	E2BIG,
+	EACCES,
+	EADDRINUSE,
+	EADDRNOTAVAIL,
+	EAGAIN,
+	EALREADY,
+
+	EBADE,
+	EBADF,
+	EBADFD,
+	EBADMSG,
+	EBADR,
+	EBADRQC,
+	EBADSLT,
+
+	EBUSY,
+	ECANCELED,
+	ECHILD,
+	ECHRNG,
+	ECOMM,
+	EDEADLOCK,
+
+	EINTR,
+	EINVAL,
+	EIO,
+
+	ENOMEDIUM,
+	ENOMEM,
+	ENOMSG,
+	ENONET,
+
+	EMAXN,
+};
 
 #endif /* end of include guard: __NROS_ERRNO_H */
