@@ -20,7 +20,7 @@ pde_t *kpgdir;
 
 struct kmem_map_s {
 	void *virt_adr;
-	u32_t phys_adr, phys_stop;
+	uint32_t phys_adr, phys_stop;
 	int perm;
 };
 
@@ -83,15 +83,15 @@ pte_t *find_pte(pde_t *pd, const void *a, bool new)
 static
 int map_pages(struct kmem_map_s *kmm)
 {
-	u8_t *v, *vbeg, *vend;
-	u32_t off = 0, sz, pbeg;
+	uint8_t *v, *vbeg, *vend;
+	uint32_t off = 0, sz, pbeg;
 	pte_t *pte;
 
 	v = kmm->virt_adr;
 	sz = kmm->phys_stop - kmm->phys_adr;
 	pbeg = kmm->phys_adr;
-	vbeg = (u8_t *) PAGE_ROUND_UP((u32_t) v);
-	vend = (u8_t *) PAGE_ROUND_DOWN((u32_t) v + sz);
+	vbeg = (uint8_t *) PAGE_ROUND_UP((uint32_t) v);
+	vend = (uint8_t *) PAGE_ROUND_DOWN((uint32_t) v + sz);
 
 	while (vbeg < vend) {
 		pte = find_pte(kpgdir, vbeg, true);
