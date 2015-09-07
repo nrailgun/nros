@@ -1,6 +1,7 @@
 include ../Makefile.config
 
-kobjs := kentry.o main.o console.o spinlock.o kalloc.o kvm.o string.o
+kobjs := kentry.o main.o console.o spinlock.o kalloc.o kvm.o string.o \
+	mp.o
 
 kernel: kernel.ld $(kobjs)
 	$(LD) $(LDFLAGS) -T kernel.ld -o $@ $(kobjs)
