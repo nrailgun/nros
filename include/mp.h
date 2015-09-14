@@ -71,4 +71,6 @@ enum {
 	MP_LINTR	= 0x04,
 };
 
+void mp_init(void);
+
 #endif /* end of include guard: __NROS_MP_H */

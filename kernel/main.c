@@ -32,6 +32,8 @@ void main(void)
 	cnsl_puts("carefully paging...\n");
 	kvm_setup();
 
+	mp_init();
+
 	char msg[] =
 		"NROS booting done...\n";
 	cnsl_puts(msg);
