@@ -25,4 +25,6 @@ typedef uint32_t pde_t;
 
 typedef uint32_t pte_t;
 
+typedef long unsigned int size_t;
+
 #endif /* end of include guard: __NROS_TYPE_H */

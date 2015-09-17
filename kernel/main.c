@@ -26,17 +26,13 @@ void main(void)
 	cnsl_cls();
 	cnsl_puts("NROS booting...\n");
 
-	cnsl_puts("allocating frames...\n");
 	kalloc_init(kend, P2V(4 * 1024 * 1024));
-
-	cnsl_puts("carefully paging...\n");
 	kvm_setup();
 
+	cnsl_puts("Init multi-processor...\n");
 	mp_init();
 
-	char msg[] =
-		"NROS booting done...\n";
-	cnsl_puts(msg);
+	cnsl_puts("NROS booting done...\n");
 
 	while (1)
 		;

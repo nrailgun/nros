@@ -6,9 +6,9 @@
 #include <llops.h>
 #include <string.h>
 
-void *memset(void *dst, int c, uint_t n)
+void *memset(void *dst, int c, size_t n)
 {
-	if (!((uint_t) dst % 4) && !(n % 4)) {
+	if (!((size_t) dst % 4) && !(n % 4)) {
 		c &= 0xff;
 		c = (c << 24) | (c << 16) | (c << 8) | c;
 		stosl(dst, c, n / 4);
@@ -19,7 +19,7 @@ void *memset(void *dst, int c, uint_t n)
 	return dst;
 }
 
-void *memmove(void *dst, void *src, uint_t n)
+void *memmove(void *dst, void *src, size_t n)
 {
 	char *ss, *sd;
 	int i;
@@ -46,4 +46,24 @@ void *memmove(void *dst, void *src, uint_t n)
 	}
 
 	return dst;
+}
+
+void *memcpy(void *dst, void *src, size_t n)
+{
+	return memmove(dst, src, n);
+}
+
+int memcmp(const void *v1, const void *v2, size_t n)
+{
+	uchar_t *s1, *s2;
+
+	s1 = (uchar_t *) v1;
+	s2 = (uchar_t *) v2;
+
+	while (n--) {
+		if (*s1 != *s2)
+			return *s1 - *s2;
+		s1++;
+		s2++;
+	}
 }
