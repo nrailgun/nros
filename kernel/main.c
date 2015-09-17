@@ -4,6 +4,7 @@
 
 #include <common.h>
 #include <console.h>
+#include <ctype.h>
 #include <errno.h>
 #include <kalloc.h>
 #include <kpvmem.h>
@@ -21,6 +22,26 @@ pde_t pgdir[N_PDENT] = {
 	[KERN_VBASE >> PDIDX_SHFT] = 0 | PTE_P | PTE_W | PTE_PS,
 };
 
+static test_ctype(void)
+{
+	char c;
+	c = 'A';
+	c = tolower(c);
+	cnsl_putc(c);
+	c = 'a';
+	c = tolower(c);
+	cnsl_putc(c);
+
+	c = 'A';
+	c = toupper(c);
+	cnsl_putc(c);
+	c = 'a';
+	c = toupper(c);
+	cnsl_putc(c);
+
+	cnsl_puts("\n");
+}
+
 void main(void)
 {
 	cnsl_cls();
@@ -31,6 +52,8 @@ void main(void)
 
 	cnsl_puts("Init multi-processor...\n");
 	mp_init();
+
+	test_ctype();
 
 	cnsl_puts("NROS booting done...\n");
 
