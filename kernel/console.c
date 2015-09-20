@@ -4,10 +4,12 @@
  * Copyright (C) Junyu Wu, shibuyanorailgun@foxmail, 2015.
  */
 
+#include <assert.h>
 #include <console.h>
 #include <kpvmem.h>
 #include <llops.h>
 #include <string.h>
+#include <varg.h>
 
 static
 ushort_t *CRT = (ushort_t *) P2V(0xB8000);
@@ -101,4 +103,29 @@ void panic(const char *msg)
 
 	while (1)
 		;
+}
+
+int snprintf(char buf[], size_t sz, const char fmt[], ...)
+{
+	size_t i = 0;
+	va_list va;
+
+	va_start(va, fmt);
+
+	while (i < sz - 1 && *fmt) {
+		switch (*fmt)
+		{
+		case '%':
+			break;
+
+		default:
+			buf[i++] = *fmt++;
+			break;
+		}
+	}
+	assert_lt(i, sz);
+	buf[i] = '\0';
+
+	va_end(va);
+	return i;
 }

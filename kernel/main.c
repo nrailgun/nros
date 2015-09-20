@@ -171,6 +171,10 @@ void main(void)
 	test_string();
 	test_arglist();
 
+	char buf[10];
+	snprintf(buf, 10, "100word\n");
+	cnsl_puts(buf);
+
 	cnsl_puts("NROS booting done...\n");
 
 	while (1)
