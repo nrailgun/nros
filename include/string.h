@@ -15,4 +15,16 @@ void *memcpy(void *dst, void *src, size_t n);
 
 int memcmp(const void *v1, const void *v2, size_t n);
 
+int strlen(const char *s);
+
+int strncmp(const char *s1, const char *s2, size_t n);
+
+/*
+ * Copy at most n bytes from `src' to `dst'.
+ *
+ * Warning: If '\0' doesn't appears in first `n' bytes in `src', `dst' won't be
+ * 0 terminated.
+ */
+int strncpy(char *dst, const char *src, size_t n);
+
 #endif /* end of include guard: __NROS_STRING_H */
