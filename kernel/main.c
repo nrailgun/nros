@@ -2,6 +2,8 @@
  * Copyright (C) Junyu Wu, shibuyanorailgun@foxmail, 2015.
  */
 
+#include <varg.h>
+#include <assert.h>
 #include <common.h>
 #include <console.h>
 #include <ctype.h>
@@ -13,7 +15,6 @@
 #include <memory.h>
 #include <spinlock.h>
 #include <types.h>
-#include <assert.h>
 
 __attribute__((__aligned__(PG_SIZE)))
 pde_t pgdir[N_PDENT] = {
@@ -131,6 +132,30 @@ static test_string(void)
 	assert_ne(strncmp(a1, a3, 3), 0);
 }
 
+void _test_arglist(void *bar, ...)
+{
+	va_list v;
+	int a;
+
+	va_start(v, bar);
+
+	a = va_arg(v, int);
+	assert_eq(a, 0xDEAD);
+
+	a = va_arg(v, int);
+	assert_eq(a, 1234);
+
+	a = va_arg(v, int);
+	assert_eq(a, 'c');
+
+	va_end(v);
+}
+
+void test_arglist(void)
+{
+	_test_arglist(NULL, 0xDEAD, 1234, 'c');
+}
+
 void main(void)
 {
 	cnsl_cls();
@@ -144,6 +169,7 @@ void main(void)
 
 	test_ctype();
 	test_string();
+	test_arglist();
 
 	cnsl_puts("NROS booting done...\n");
 
