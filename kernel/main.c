@@ -13,6 +13,7 @@
 #include <memory.h>
 #include <spinlock.h>
 #include <types.h>
+#include <assert.h>
 
 __attribute__((__aligned__(PG_SIZE)))
 pde_t pgdir[N_PDENT] = {
