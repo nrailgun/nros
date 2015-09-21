@@ -28,3 +28,7 @@ make
 By the way, you may need:
 * GCC-4.8
 * GNU-binutils-4.6
+
+# Improvements
+* Assertion and Tests
+* Early printk
