@@ -27,4 +27,6 @@ typedef uint32_t pte_t;
 
 typedef long unsigned int size_t;
 
+typedef long int ptrdiff_t;
+
 #endif /* end of include guard: __NROS_TYPE_H */
