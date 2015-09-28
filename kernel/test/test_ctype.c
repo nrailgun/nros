@@ -7,6 +7,8 @@
 #include "test.h"
 #include "test_ctype.h"
 
+#ifdef CONFIG_TEST
+
 void test_ctype(void)
 {
 	char c;
@@ -26,3 +28,5 @@ void test_ctype(void)
 	c = toupper(c);
 	assert_eq(c, 'A');
 }
+
+#endif

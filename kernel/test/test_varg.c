@@ -7,6 +7,8 @@
 #include "test.h"
 #include "test_varg.h"
 
+#ifdef CONFIG_TEST
+
 static
 void _test_arglist(void *bar, ...)
 {
@@ -31,3 +33,5 @@ void test_arglist(void)
 {
 	_test_arglist(NULL, 0xDEAD, 1234, 'c');
 }
+
+#endif

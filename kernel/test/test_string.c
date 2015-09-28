@@ -7,6 +7,8 @@
 #include "test.h"
 #include "test_string.h"
 
+#ifdef CONFIG_TEST
+
 /*
  * Cautious: Kernel Data Area are not writable. See kvm.c for details.
  */
@@ -94,3 +96,5 @@ void test_string(void)
 	assert_eq(strncmp(a1, a3, 2), 0);
 	assert_ne(strncmp(a1, a3, 3), 0);
 }
+
+#endif

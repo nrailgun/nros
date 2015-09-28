@@ -9,4 +9,6 @@
 
 #define CONFIG_KSTACKSIZE 4096
 
+// #define CONFIG_TEST
+
 #endif /* end of include guard: __NROS_PARAM_H */

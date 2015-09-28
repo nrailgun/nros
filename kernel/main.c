@@ -40,9 +40,7 @@ void main(void)
 	// cnsl_puts("Init multi-processor...\n");
 	mp_init();
 
-	test_ctype();
-	test_string();
-	test_arglist();
+	test_stage1();
 
 	char buf[10];
 	snprintf(buf, 10, "100word\n");
