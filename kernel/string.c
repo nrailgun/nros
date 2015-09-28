@@ -51,9 +51,15 @@ void *memmove(void *dst, void *src, size_t n)
 	return dst;
 }
 
-void *memcpy(void *dst, void *src, size_t n)
+void *memcpy(void *dst, const void *src, size_t n)
 {
-	return memmove(dst, src, n);
+	size_t i;
+	char *cd = (char *) dst;
+	const char *cs = (const char *) src;
+
+	for (i = 0; i < n; i++) {
+		cd[i] = cs[i];
+	}
 }
 
 int memcmp(const void *v1, const void *v2, size_t n)
