@@ -27,4 +27,6 @@ int strncmp(const char *s1, const char *s2, size_t n);
  */
 int strncpy(char *dst, const char *src, size_t n);
 
+int snprintf(char buf[], size_t sz, const char fmt[], ...);
+
 #endif /* end of include guard: __NROS_STRING_H */

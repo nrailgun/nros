@@ -4,9 +4,14 @@
 
 #include <assert.h>
 #include <console.h>
+#include <string.h>
 
 void assert_fail(const char assertion[], const char file[], unsigned int line,
 	const char function[])
 {
-	panic("Assertion failed!\n");
+	char msg[256];
+
+	snprintf(msg, 256, "%s:%d:%s: assertion '%s' failed.",
+		file, line, function, assertion);
+	panic(msg);
 }
