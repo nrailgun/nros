@@ -98,6 +98,19 @@ void cnsl_puts(const char s[])
 	}
 }
 
+void printf(const char fmt[], ...)
+{
+	char buf[320]; // 4 lines
+	va_list va;
+	int rv;
+
+	va_start(va, fmt);
+	rv = vsnprintf(buf, 320, fmt, va);
+	if (rv > 0)
+		cnsl_puts(buf);
+	va_end(va);
+}
+
 void panic(const char *msg)
 {
 	cnsl_puts(msg);

@@ -189,11 +189,20 @@ int snprintf_arg(char buf[], size_t sz, const char fmt[], va_list *va)
  */
 int snprintf(char buf[], size_t sz, const char fmt[], ...)
 {
-	size_t i = 0;
 	int rv;
 	va_list va;
 
 	va_start(va, fmt);
+	rv = vsnprintf(buf, sz, fmt, va);
+	va_end(va);
+
+	return rv;
+}
+
+int vsnprintf(char buf[], size_t sz, const char fmt[], va_list va)
+{
+	size_t i = 0;
+	int rv;
 
 	while (i < sz - 1 && *fmt) {
 		if (!*fmt)
@@ -217,6 +226,5 @@ int snprintf(char buf[], size_t sz, const char fmt[], ...)
 	assert_lt(i, sz);
 	buf[i] = '\0';
 
-	va_end(va);
 	return i;
 }

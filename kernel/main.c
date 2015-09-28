@@ -42,7 +42,7 @@ void main(void)
 
 	test_stage1();
 	test_snprintf();
-	assert(1 == 0);
+	printf("hello, %d, %s!\n", 0xdead, "world");
 
 	cnsl_puts("NROS booting done...\n");
 	while (1)

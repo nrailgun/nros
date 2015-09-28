@@ -34,4 +34,6 @@ void cnsl_putc(char c);
 
 void cnsl_puts(const char s[]);
 
+void printf(const char fmt[], ...);
+
 #endif /* end of include guard: __NROS_CONSOLE_H */
