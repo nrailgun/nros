@@ -8,8 +8,6 @@
 
 boot/bootloader
 kernel/kernel
-test
-test/test
 
 .vimrc
 .clang_complete

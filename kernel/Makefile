@@ -1,16 +1,18 @@
 include ../Makefile.config
 
-kobjs := kentry.o main.o console.o spinlock.o kalloc.o kvm.o string.o \
+kern_objs := kentry.o main.o console.o spinlock.o kalloc.o kvm.o string.o \
 	mp.o math.o ctype.o assert.o
 
-kernel: kernel.ld $(kobjs)
-	$(LD) $(LDFLAGS) -T kernel.ld -o $@ $(kobjs)
+test_objs := test/test_ctype.o test/test_string.o test/test_varg.o
+
+kernel: kernel.ld $(kern_objs) $(test_objs)
+	$(LD) $(LDFLAGS) -T kernel.ld -o $@ $(kern_objs) $(test_objs)
 
 kentry.o: kentry.S
 	$(CC) $(CFLAGS) -c kentry.S
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $<
+	$(CC) $(CFLAGS) -o $@ -c $<
 
 -include *.d
 
