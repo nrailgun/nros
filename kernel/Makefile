@@ -10,7 +10,7 @@ kernel: kernel.ld $(kern_objs) $(test_objs)
 	$(LD) $(LDFLAGS) -T kernel.ld -o $@ $(kern_objs) $(test_objs)
 
 kentry.o: kentry.S
-	$(CC) $(CFLAGS) -c kentry.S
+	$(CC) $(CFLAGS) -o $@ -c kentry.S
 
 %.o: %.c
 	$(CC) $(CFLAGS) -o $@ -c $<
