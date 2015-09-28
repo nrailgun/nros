@@ -20,6 +20,7 @@
 #include "test/test_ctype.h"
 #include "test/test_string.h"
 #include "test/test_varg.h"
+#include "test/test_cnsl.h"
 
 __attribute__((__aligned__(PG_SIZE)))
 pde_t pgdir[N_PDENT] = {
@@ -37,17 +38,12 @@ void main(void)
 	kalloc_init(kend, P2V(4 * 1024 * 1024));
 	kvm_setup();
 
-	// cnsl_puts("Init multi-processor...\n");
 	mp_init();
 
 	test_stage1();
-
-	char buf[10];
-	snprintf(buf, 10, "100word\n");
-	cnsl_puts(buf);
+	test_snprintf();
 
 	cnsl_puts("NROS booting done...\n");
-
 	while (1)
 		;
 }
