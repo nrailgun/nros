@@ -10,6 +10,19 @@
 #include <string.h>
 #include <console.h>
 
+#if 0
+static uchar_t
+getsum(uchar_t *addr, int len)
+{
+  int i, sum;
+  
+  sum = 0;
+  for(i=0; i<len; i++)
+    sum += addr[i];
+  return sum;
+}
+#endif
+
 static
 mp_fp_struct_t *mp_lookup_fp_struct_at(uint32_t phys, size_t len)
 {
@@ -18,8 +31,8 @@ mp_fp_struct_t *mp_lookup_fp_struct_at(uint32_t phys, size_t len)
 	a = p2v(phys);
 	end = a + len;
 	for (p = a; p < end; p += sizeof(mp_fp_struct_t)) {
-		if (0 == memcmp(p, "_MP_", 4) && 0 == sumuc(p, sizeof(mp_fp_struct_t))) {
-			printf("HAHA\n");
+		if (!memcmp(p, "_MP_", 4) && !getsum(p, sizeof(mp_fp_struct_t)))
+		{
 			return (mp_fp_struct_t *) p;
 		}
 	}
@@ -62,17 +75,16 @@ mp_conf_table_t *mp_lookup_conf_table(mp_fp_struct_t **mp_pt)
 	mp_conf_table_t *conf;
 
 	mp = mp_lookup_fp_struct();
-	assert(mp);
-	printf("%x\n", mp);
-	//if (!mp || !mp->conf_table) {
-	//	return NULL;
-	//}
+	if (!mp || !mp->conf_table) {
+		return NULL;
+	}
 
-	// conf = (mp_conf_table_t *) p2v(mp->conf_table);
-	// printf("%x\n", mp);
-	// if (memcmp(conf, "PCMP", 4) != 0) {
-	// 	return 0;
-	// }
+	conf = (mp_conf_table_t *) p2v(mp->conf_table);
+	printf("%x\n", mp);
+	printf("%x\n", mp->conf_table);
+	if (memcmp(conf, "PCMP", 4) != 0) {
+		return 0;
+	}
 }
 
 void mp_init(void)

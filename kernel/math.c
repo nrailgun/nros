@@ -5,7 +5,7 @@
 #include <math.h>
 #include <types.h>
 
-int sumi(const int a[], const size_t n)
+int sum_i(const int a[], const size_t n)
 {
 	int s = 0;
 	size_t i;
@@ -16,10 +16,20 @@ int sumi(const int a[], const size_t n)
 	return s;
 }
 
-uchar_t sumuc(const uchar_t a[], const size_t n)
+uchar_t
+getsum(uchar_t *addr, int len)
 {
-	int s = 0;
-	size_t i;
+  int i, sum;
+  
+  sum = 0;
+  for(i=0; i<len; i++)
+    sum += addr[i];
+  return sum;
+}
+
+uchar_t sum_c(const uchar_t *a, const int n)
+{
+	int i, s = 0;
 
 	for (i = 0; i < n; ++i) {
 		s += a[i];
