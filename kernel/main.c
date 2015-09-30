@@ -40,10 +40,6 @@ void main(void)
 
 	mp_init();
 
-	test_stage1();
-	test_snprintf();
-	printf("hello, %d, %s!\n", 0xdead, "world");
-
 	cnsl_puts("NROS booting done...\n");
 	while (1)
 		;

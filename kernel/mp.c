@@ -2,6 +2,7 @@
  * Copyright (C) Junyu Wu, shibuyanorailgun@foxmail, 2015.
  */
 
+#include <assert.h>
 #include <common.h>
 #include <mp.h>
 #include <types.h>

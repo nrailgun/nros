@@ -150,6 +150,31 @@ int itos(char buf[], size_t sz, int v)
 }
 
 static
+int xtos(char buf[], size_t sz, unsigned int v)
+{
+	if (sz < 10)
+		return 0;
+
+	int i, j = 0;
+	uchar_t c;
+
+	buf[j++] = '0';
+	buf[j++] = 'x';
+	for (i = 28; i >= 0; i -= 4) {
+		c = (v >> i) & 0xf;
+
+		if (0 <= c && c <= 9)
+			c += '0';
+		else {
+			c += 'A' - 0xA;
+		}
+		buf[j++] = c;
+	}
+
+	return 10;
+}
+
+static
 int snprintf_arg(char buf[], size_t sz, const char fmt[], va_list *va)
 {
 	size_t sl;
@@ -169,6 +194,11 @@ int snprintf_arg(char buf[], size_t sz, const char fmt[], va_list *va)
 	case 'd':
 		vai = va_arg(*va, int);
 		sl = itos(buf, sz, vai);
+		break;
+
+	case 'x':
+		vai = va_arg(*va, unsigned int);
+		sl = xtos(buf, sz, vai);
 		break;
 
 	case 'c':
