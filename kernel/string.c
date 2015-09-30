@@ -22,7 +22,6 @@ void *memset(void *dst, int c, size_t n)
 	return dst;
 }
 
-// TODO: need TEST
 void *memmove(void *dst, void *src, size_t n)
 {
 	char *ss, *sd;
@@ -61,14 +60,15 @@ void *memcpy(void *dst, const void *src, size_t n)
 	for (i = 0; i < n; i++) {
 		cd[i] = cs[i];
 	}
+	return dst;
 }
 
 int memcmp(const void *v1, const void *v2, size_t n)
 {
-	uchar_t *s1, *s2;
+	const uchar_t *s1, *s2;
 
-	s1 = (uchar_t *) v1;
-	s2 = (uchar_t *) v2;
+	s1 = (const uchar_t *) v1;
+	s2 = (const uchar_t *) v2;
 
 	while (n--) {
 		if (*s1 != *s2)
@@ -76,6 +76,7 @@ int memcmp(const void *v1, const void *v2, size_t n)
 		s1++;
 		s2++;
 	}
+	return 0;
 }
 
 int strlen(const char *s)

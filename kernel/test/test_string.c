@@ -97,4 +97,36 @@ void test_string(void)
 	assert_ne(strncmp(a1, a3, 3), 0);
 }
 
+void test_memcmp(void)
+{
+	int a[] = { 1, 4, -5 };
+	int b[] = { 1, 4, -5 };
+	int c[] = { 1, 4, -4 };
+
+	int rv;
+
+	assert(sizeof(a) == sizeof(b));
+	assert(sizeof(a) == sizeof(c));
+
+	rv = memcmp(a, b, sizeof(a));
+	assert_eq(rv, 0);
+
+	rv = memcmp(a, c, sizeof(a));
+	assert_ne(rv, 0);
+
+	rv = memcmp(a, b, 8);
+	assert_eq(rv, 0);
+
+	rv = memcmp(a, c, 8);
+	assert_eq(rv, 0);
+
+	char d[] = "hello";
+	char e[] = "hexlo";
+	rv = memcmp(d, e, 2);
+	assert_eq(rv, 0);
+
+	rv = memcmp(d, e, 4);
+	assert_ne(rv, 0);
+}
+
 #endif

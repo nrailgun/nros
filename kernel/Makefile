@@ -4,7 +4,7 @@ kern_objs := kentry.o main.o console.o spinlock.o kalloc.o kvm.o string.o \
 	mp.o math.o ctype.o assert.o
 
 test_objs := test/test.o test/test_ctype.o test/test_string.o test/test_varg.o \
-	test/test_cnsl.o
+	test/test_cnsl.o test/test_math.o
 
 kernel: kernel.ld $(kern_objs) $(test_objs)
 	$(LD) $(LDFLAGS) -T kernel.ld -o $@ $(kern_objs) $(test_objs)

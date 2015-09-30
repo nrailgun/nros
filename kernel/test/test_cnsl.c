@@ -8,6 +8,8 @@
 #include "test.h"
 #include "test_cnsl.h"
 
+#ifdef CONFIG_TEST
+
 void test_snprintf_s(void)
 {
 	char buf[10];
@@ -122,3 +124,5 @@ void test_snprintf(void)
 	test_snprintf_s();
 	test_snprintf_d();
 }
+
+#endif

@@ -9,6 +9,8 @@
 
 void test_string(void);
 
+void test_memcmp(void);
+
 #else
 
 #define test_string()
