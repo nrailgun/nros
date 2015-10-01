@@ -15,6 +15,7 @@
 #include <memory.h>
 #include <spinlock.h>
 #include <types.h>
+#include <mp.h>
 
 #include "test/test.h"
 #include "test/test_ctype.h"

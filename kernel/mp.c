@@ -4,11 +4,12 @@
 
 #include <assert.h>
 #include <common.h>
-#include <mp.h>
-#include <types.h>
-#include <kpvmem.h>
-#include <string.h>
 #include <console.h>
+#include <kpvmem.h>
+#include <math.h>
+#include <mp.h>
+#include <string.h>
+#include <types.h>
 
 static
 mp_fp_struct_t *mp_lookup_fp_struct_at(uint32_t phys, size_t len)
@@ -21,7 +22,6 @@ mp_fp_struct_t *mp_lookup_fp_struct_at(uint32_t phys, size_t len)
 	for (p = a; p < end; p += sizeof(mp_fp_struct_t)) {
 		if (!memcmp(p, "_MP_", 4)) {
 			rv = sum_uc(p, sizeof(mp_fp_struct_t));
-			printf("return value %d\n", rv);
 			if (!rv)
 				return (mp_fp_struct_t *) p;
 		}
@@ -70,11 +70,11 @@ mp_conf_table_t *mp_lookup_conf_table(mp_fp_struct_t **mp_pt)
 	}
 
 	conf = (mp_conf_table_t *) p2v(mp->conf_table);
-	printf("%x\n", mp);
-	printf("%x\n", mp->conf_table);
 	if (memcmp(conf, "PCMP", 4) != 0) {
 		return 0;
 	}
+
+	return NULL;
 }
 
 void mp_init(void)
@@ -83,6 +83,6 @@ void mp_init(void)
 	mp_conf_table_t *conftab;
 
 	conftab = mp_lookup_conf_table(&mp);
-	//if (!conftab)
-	//	return;
+	if (!conftab)
+		return;
 }

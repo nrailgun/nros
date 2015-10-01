@@ -14,6 +14,7 @@
 #include <memory.h>
 #include <types.h>
 #include <memory.h>
+#include <console.h>
 
 static
 pde_t *kpgdir;
@@ -84,7 +85,7 @@ static
 int map_pages(struct kmem_map_s *kmm)
 {
 	uint8_t *v, *vbeg, *vend;
-	uint32_t off = 0, sz, pbeg;
+	uint32_t sz, pbeg;
 	pte_t *pte;
 
 	v = kmm->virt_adr;
@@ -111,7 +112,6 @@ static
 pde_t *kvm_alloc(void)
 {
 	int i, rv;
-	pte_t *pt;
 	struct kmem_map_s *kmm;
 
 	kpgdir = (pde_t *) kalloc();

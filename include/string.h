@@ -6,6 +6,7 @@
 #define __NROS_STRING_H
 
 #include <types.h>
+#include <varg.h>
 
 void *memset(void *dst, int c, size_t n);
 
@@ -26,6 +27,8 @@ int strncmp(const char *s1, const char *s2, size_t n);
  * 0 terminated.
  */
 int strncpy(char *dst, const char *src, size_t n);
+
+int vsnprintf(char buf[], size_t sz, const char fmt[], va_list va);
 
 int snprintf(char buf[], size_t sz, const char fmt[], ...);
 
