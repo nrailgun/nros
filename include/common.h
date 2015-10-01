@@ -11,6 +11,8 @@
 
 #define NULL ((void *) 0)
 
+#define STRING(s) #s
+
 #define ARRAY_LENGTH(a) (sizeof(a) / sizeof(*a))
 
 #define ROUND_UP(a, b) (((a) + b - 1) & ~(b - 1))
