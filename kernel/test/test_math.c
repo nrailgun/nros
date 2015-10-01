@@ -9,6 +9,7 @@
 #include <math.h>
 #include <types.h>
 
+#if 0
 void test_sumuc(void)
 {
 	char a[] = {
@@ -25,3 +26,4 @@ void test_sumuc(void)
 	uc = sum_c(b, 4);
 	assert_eq(uc, 8);
 }
+#endif

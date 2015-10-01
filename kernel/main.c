@@ -38,8 +38,6 @@ void main(void)
 	kalloc_init(kend, P2V(4 * 1024 * 1024));
 	kvm_setup();
 
-	test_sumuc();
-	test_memcmp();
 	mp_init();
 
 	cnsl_puts("NROS booting done...\n");

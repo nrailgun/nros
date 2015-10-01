@@ -7,11 +7,6 @@
 
 #include <types.h>
 
-int sum_i(const int a[], const size_t n);
-
-uchar_t
-getsum(uchar_t *addr, int len);
-
-uchar_t sum_c(const uchar_t *a, const int n);
+uchar_t sum_uc(uchar_t a[], size_t len);
 
 #endif /* end of include guard: __NROS_MATH_H */

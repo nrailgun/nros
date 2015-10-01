@@ -10,30 +10,20 @@
 #include <string.h>
 #include <console.h>
 
-#if 0
-static uchar_t
-getsum(uchar_t *addr, int len)
-{
-  int i, sum;
-  
-  sum = 0;
-  for(i=0; i<len; i++)
-    sum += addr[i];
-  return sum;
-}
-#endif
-
 static
 mp_fp_struct_t *mp_lookup_fp_struct_at(uint32_t phys, size_t len)
 {
 	uint8_t *a, *end, *p;
+	int rv;
 
 	a = p2v(phys);
 	end = a + len;
 	for (p = a; p < end; p += sizeof(mp_fp_struct_t)) {
-		if (!memcmp(p, "_MP_", 4) && !getsum(p, sizeof(mp_fp_struct_t)))
-		{
-			return (mp_fp_struct_t *) p;
+		if (!memcmp(p, "_MP_", 4)) {
+			rv = sum_uc(p, sizeof(mp_fp_struct_t));
+			printf("return value %d\n", rv);
+			if (!rv)
+				return (mp_fp_struct_t *) p;
 		}
 	}
 	return NULL;
