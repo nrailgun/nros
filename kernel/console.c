@@ -98,7 +98,7 @@ void cnsl_puts(const char s[])
 	}
 }
 
-void printf(const char fmt[], ...)
+int printf(const char fmt[], ...)
 {
 	char buf[320]; // 4 lines
 	va_list va;
@@ -108,7 +108,11 @@ void printf(const char fmt[], ...)
 	rv = vsnprintf(buf, 320, fmt, va);
 	if (rv > 0)
 		cnsl_puts(buf);
+	else
+		cnsl_puts("`printf` failed to format string.\n");
 	va_end(va);
+
+	return rv;
 }
 
 void panic(const char *msg)

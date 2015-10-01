@@ -31,7 +31,7 @@ pde_t pgdir[N_PDENT] = {
 	[KERN_VBASE >> PDIDX_SHFT] = 0 | PTE_P | PTE_W | PTE_PS,
 };
 
-void main(void)
+int main(void)
 {
 	cnsl_cls();
 	cnsl_puts("NROS booting...\n");

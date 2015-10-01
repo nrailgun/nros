@@ -178,7 +178,7 @@ int xtos(char buf[], size_t sz, unsigned int v)
 static
 int snprintf_arg(char buf[], size_t sz, const char fmt[], va_list *va)
 {
-	size_t sl;
+	size_t sl = 0;
 	const char *vas;
 	int vai;
 
@@ -198,12 +198,13 @@ int snprintf_arg(char buf[], size_t sz, const char fmt[], va_list *va)
 		break;
 
 	case 'x':
+	case 'p':
 		vai = va_arg(*va, unsigned int);
 		sl = xtos(buf, sz, vai);
 		break;
 
 	case 'c':
-		assert(false);
+		// assert(false);
 		break;
 
 	case '\0':
@@ -254,7 +255,7 @@ int vsnprintf(char buf[], size_t sz, const char fmt[], va_list va)
 			break;
 		}
 	}
-	assert_lt(i, sz);
+	// assert_lt(i, sz);
 	buf[i] = '\0';
 
 	return i;
