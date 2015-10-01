@@ -9,21 +9,19 @@
 #include <math.h>
 #include <types.h>
 
-#if 0
-void test_sumuc(void)
+void test_sum_c(void)
 {
-	char a[] = {
+	uchar_t a[] = {
 		1, -1, 2
 	};
 
-	uchar_t uc = sum_c(a, 3);
+	uchar_t uc = sum_uc(a, 3);
 	assert_eq(uc, 2);
 
-	char b[] = {
+	uchar_t b[] = {
 		1, 1, 2, 4
 	};
 
-	uc = sum_c(b, 4);
+	uc = sum_uc(b, 4);
 	assert_eq(uc, 8);
 }
-#endif

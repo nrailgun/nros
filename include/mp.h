@@ -6,6 +6,7 @@
 #define __NROS_MP_H
 
 #include <types.h>
+#include <proc.h>
 
 struct mp_fp_struct_s
 {
@@ -15,7 +16,7 @@ struct mp_fp_struct_s
 	uint8_t		revision;
 	uint8_t		chksum;
 	uint8_t		def_conf;
-	uint32_t	features;
+	uint8_t		features[4];
 } __attribute__((packed));
 
 typedef struct mp_fp_struct_s mp_fp_struct_t;
@@ -50,6 +51,8 @@ struct mp_proc_entry_s
 	uint32_t	reserved[2];
 } __attribute__((packed));
 
+#define MP_PROC_ENTRY_FLAG_BOOT_MP 0x02
+
 typedef struct mp_proc_entry_s mp_proc_entry_t;
 
 struct io_apic_entry_s
@@ -72,5 +75,17 @@ enum {
 };
 
 void mp_init(void);
+
+extern
+bool is_mp;
+
+extern
+int n_cpu;
+
+extern
+uint8_t io_apic_id;
+
+extern
+cpu_t cpus[CONFIG_MAX_NCPU];
 
 #endif /* end of include guard: __NROS_MP_H */

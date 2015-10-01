@@ -16,7 +16,7 @@ kernel:
 
 .PHONY: nros $(PROJS) clean run
 run:
-	qemu-system-i386 -hda nros.img &
+	qemu-system-i386 -hda nros.img -smp 2 -m 512 &
 
 clean:
 	(for i in $(PROJS); do \

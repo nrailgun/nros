@@ -18,10 +18,12 @@
 #include <mp.h>
 
 #include "test/test.h"
+#include "test/test_cnsl.h"
 #include "test/test_ctype.h"
+#include "test/test_math.h"
 #include "test/test_string.h"
 #include "test/test_varg.h"
-#include "test/test_cnsl.h"
+#include "test/test_mp.h"
 
 __attribute__((__aligned__(PG_SIZE)))
 pde_t pgdir[N_PDENT] = {
@@ -38,8 +40,19 @@ int main(void)
 
 	kalloc_init(kend, P2V(4 * 1024 * 1024));
 	kvm_setup();
+#ifdef CONFIG_TEST
+	test_snprintf();
+	test_ctype();
+	test_sum_c();
+	test_string();
+	test_memcmp();
+	test_arglist();
+#endif
 
 	mp_init();
+#ifdef CONFIG_TEST
+	test_mp_init();
+#endif
 
 	cnsl_puts("NROS booting done...\n");
 	while (1)
