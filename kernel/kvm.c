@@ -25,7 +25,6 @@ struct kmem_map_s {
 	int perm;
 };
 
-// TODO: kernel device space
 static
 struct kmem_map_s kmmaps[] =
 {
@@ -47,7 +46,10 @@ struct kmem_map_s kmmaps[] =
 	 */
 	{ (void *) kdata, V2P(kdata), KERN_PSTOP, PTE_W },
 
-	{ (void *) DEV_SPACE, DEV_SPACE, 0, PTE_W },
+	/*
+	 * [ DEV_SPACE, 0xffffffff ). Device Space, direct map (such as ioapic).
+	 */
+	{ (void *) DEV_SPACE, DEV_SPACE, 0xffffffff, PTE_W },
 };
 
 static
@@ -79,9 +81,6 @@ pte_t *find_pte(pde_t *pd, const void *a, bool new)
 	return &pgtab[PTIDX(a)];
 }
 
-/*
- * TODO: I guess rounding up should be useless. remove them one day.
- */
 static
 int map_pages(struct kmem_map_s *kmm)
 {

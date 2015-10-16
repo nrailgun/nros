@@ -4,6 +4,7 @@
 
 #include <lapic.h>
 #include <traps.h>
+#include <console.h>
 
 volatile
 uint32_t *local_apic = NULL;
@@ -56,8 +57,6 @@ void lapic_init(void)
 		return;
 
 	// Enable local APIC; set spurious interrupt vector.
-	printf("%p\n", local_apic);
-	return;
 	lapicw(SVR, ENABLE | (T_IRQ0 + IRQ_SPURIOUS));
 
 	// The timer repeatedly counts down at bus frequency
