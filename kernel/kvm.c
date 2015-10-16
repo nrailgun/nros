@@ -33,20 +33,21 @@ struct kmem_map_s kmmaps[] =
 	 * [ 0, KERN_PSTART ) -> [ KERN_VBASE, KERN_VSTART ). Totally 1MB for
 	 * I/O space.
 	 */
-	{ (void *) KERN_VBASE,	0,		KERN_PSTART,	PTE_W },
+	{ (void *) KERN_VBASE, 0, KERN_PSTART, PTE_W },
 
 	/*
 	 * [ KERN_PSTART, V2P(kdata)) -> [ KERN_VSTART, kdata ). Kernel .text
 	 * & .rodata sections.
 	 */
-	{ (void *) KERN_VSTART,	KERN_PSTART, 	V2P(kdata), 	0 },
+	{ (void *) KERN_VSTART, KERN_PSTART, V2P(kdata), 0 },
 
 	/*
 	 * [ V2P(kdata), KERN_PSTOP) -> [ kdata, ). Kernel .data section + R/W
 	 * free memory.
 	 */
-	{ (void *) kdata,	V2P(kdata), 	KERN_PSTOP, 	PTE_W },
+	{ (void *) kdata, V2P(kdata), KERN_PSTOP, PTE_W },
 
+	{ (void *) DEV_SPACE, DEV_SPACE, 0, PTE_W },
 };
 
 static

@@ -11,4 +11,6 @@
 extern volatile
 uint32_t *local_apic;
 
+void lapic_init(void);
+
 #endif /* end of include guard: __NROS_LAPIC_H */
