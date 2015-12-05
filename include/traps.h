@@ -4,6 +4,9 @@
  * Copyright (C) Junyu Wu, shibuyanorailgun@foxmail, 2015.
  */
 
+#ifndef __NROS_TRAPS_H
+#define __NROS_TRAPS_H
+
 // Processor-defined:
 #define T_DIVIDE         0      // divide error
 #define T_DEBUG          1      // debug exception
@@ -39,3 +42,5 @@
 #define IRQ_IDE         14
 #define IRQ_ERROR       19
 #define IRQ_SPURIOUS    31
+
+#endif /* end of include guard: __NROS_TRAPS_H */
